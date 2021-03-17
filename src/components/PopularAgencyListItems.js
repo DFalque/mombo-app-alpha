@@ -7,9 +7,10 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
+//UI
+import TextNormal from '../ui/TextNormal';
 
 const PopularAgencyListItems = ({navigation, item}) => {
-  console.log('componente cargado');
   return (
     <TouchableOpacity
       style={styles.container}
@@ -17,7 +18,9 @@ const PopularAgencyListItems = ({navigation, item}) => {
       delayPressIn={0}
       onPress={() => navigation.navigate('Agencia')}>
       <Text style={styles.header}>{item.title} </Text>
-      <Text style={styles.body}>{item.body} </Text>
+      <View style={styles.body}>
+        <TextNormal>{item.body} </TextNormal>
+      </View>
       <Image style={styles.img} source={item.image} />
     </TouchableOpacity>
   );
@@ -42,12 +45,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   body: {
-    fontSize: 12,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 15,
-    textAlign: 'justify',
-    color: '#000',
     marginStart: 10,
     marginBottom: 10,
   },

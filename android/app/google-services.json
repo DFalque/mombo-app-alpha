@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "468837751686",
+    "firebase_url": "https://mombo-1571065393002.firebaseio.com",
+    "project_id": "mombo-1571065393002",
+    "storage_bucket": "mombo-1571065393002.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468837751686:android:30ba66da4d5c947a816a07",
+        "android_client_info": {
+          "package_name": "com.mapapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468837751686-h4g2lbl9ncvnk1iqvt4gh86hft01tpiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY-600Hu0gYdxw8H17ghO8-DPKM2M2gNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468837751686-h4g2lbl9ncvnk1iqvt4gh86hft01tpiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468837751686:android:46eb640259ae24f6816a07",
+        "android_client_info": {
+          "package_name": "com.mombo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468837751686-h4g2lbl9ncvnk1iqvt4gh86hft01tpiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY-600Hu0gYdxw8H17ghO8-DPKM2M2gNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468837751686-h4g2lbl9ncvnk1iqvt4gh86hft01tpiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

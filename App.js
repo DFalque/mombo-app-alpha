@@ -14,6 +14,7 @@ import HomeScreen from './src/screens/bottom/MapScreen';
 import AgencyScreen from './src/screens/bottom/AgencyScreen';
 import AgencyDetailsScreen from './src/screens/bottom/AgencyDetailsScreen';
 //MAPA
+import MapScreen from './src/screens/MapPage';
 import GuideScreen from './src/screens/bottom/HomeScreen';
 //MESSAGES
 import MessageScreen from './src/screens/bottom/MessageScreen';
@@ -22,11 +23,22 @@ import ItineraryScreen from './src/screens/bottom/ItineraryScreen';
 //PROFILE
 import ProfileScreen from './src/screens/bottom/ProfileScreen';
 // Falta la pantalla de itinerario no se donde ponerla
+//
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import {firebase} from '@react-native-firebase/database';
+
+import {firebaseConfig, mapBoxGLkey} from './database';
 
 //                                                                //
 //VARIABLES
 //let deviceWidth = Dimensions.get('window').width;
 //let deviceHeight = Dimensions.get('window').height;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const firestore = firebase.firestore();
+
+MapboxGL.setAccessToken(mapBoxGLkey);
 
 //                                                                //
 // STACKS
@@ -72,11 +84,21 @@ const AgencyStackScreen = ({navigation, route}) => {
   );
 };
 
-const MapStackScreen = () => {
+const MapStackScreen = ({navigation, route}) => {
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({tabBarVisible: false});
+  } else {
+    navigation.setOptions({tabBarVisible: true});
+  }
   return (
     <MapStack.Navigator
       initialRouteName="Para ti"
       screenOptions={{headerShown: false}}>
+      <MapStack.Screen
+        name="Mapa"
+        component={MapScreen}
+        Options={{title: 'Map', headerShown: false}}
+      />
       <MapStack.Screen name="Guia" component={GuideScreen} Options={{}} />
     </MapStack.Navigator>
   );
