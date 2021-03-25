@@ -8,16 +8,19 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Button,
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import auth from '@react-native-firebase/auth';
 //COMPONENTES
 import ActionButton from '../../components/ActionButton';
 import Section from '../../components/Section';
+const ProfileScreen = (props, {navigation}) => {
+  console.log(props);
 
-const ProfileScreen = ({navigation}) => {
   const [group, setGroup] = useState([
     {title: 'Alaska', image: require('../../assets/img/alaska.png'), id: 0},
     {title: 'Lisbon', image: require('../../assets/img/jap.png'), id: 1},
@@ -273,6 +276,7 @@ const ProfileScreen = ({navigation}) => {
               />
             </View>
           </View>
+          <Button title="Cerrar sesión" onPress={() => auth().signOut()} />
         </View>
       </ScrollView>
     </SafeAreaView>

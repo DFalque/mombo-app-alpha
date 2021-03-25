@@ -60,34 +60,16 @@ export default class MapPage extends React.Component {
     await ref.get().then((snap) => {
       snap.forEach((item) => {
         let data = item.data();
-        console.log('Esto es lo que recibimos en primer lugar');
-        console.log(data);
-        console.log('');
-        //console.log('Probando la propiedad objeto');
-        //console.log(Object.entries(data));
-        // console.log({dataArray});
         items.push(...items, data);
-        //items.splice(1, 1);
-        console.log('Lo metemos en un array');
         //items.map((a) => console.log(a.geometry));
-        console.log(items);
-        console.log('');
       });
     });
-
-    console.log('PRRRRRR estamos fuera de la funcion');
-    //let {properties} = items;
-    //console.log(properties);
-    //console.log(items);
-    console.log('');
-    console.log('');
-    console.log(' ---------------------- ');
 
     this.setState((state) => ({
       misMarcadores: [...state.misMarcadores, ...items],
     }));
-    console.log(this.state.misMarcadores);
-    console.log(' ---------------------- ');
+    //console.log(this.state.misMarcadores);
+    //console.log(' ---------------------- ');
   };
   //                                                                      //
 
@@ -122,8 +104,6 @@ export default class MapPage extends React.Component {
     dataSources.forEach((dataSource) => {
       // Encuentra la dirección del marcador
       let itemsRef = this.getRef().child(dataSource.url);
-      //console.log('patataaaaaaaaa');
-      //console.log(itemsRef);
 
       //Firestore
       let markRef = firestore().collection(dataSource.url);
@@ -132,15 +112,11 @@ export default class MapPage extends React.Component {
       //Guarda todo los datos de los marcadores en items
       itemsRef.on('value', (snap) => {
         let items = snap.val().features;
-        console.log('iteeeeeeems');
-        console.log(items);
         //Por cada Item sustituye algunos de los datos de Firebase por los datos
         // que están en este código ¿¿¿???
         items.forEach((feature) => {
           feature.properties.marker_type = dataSource.marker_type;
           feature.properties.category = dataSource.url;
-          console.log(feature.properties.marker_type);
-          //antes tenia esto
           //return  feature
           return null;
         });
@@ -157,6 +133,7 @@ export default class MapPage extends React.Component {
         // }
       });
     });
+    console.log('-------------------------------------------------------');
   }
 
   //                                                                      //
@@ -170,6 +147,7 @@ export default class MapPage extends React.Component {
 
   toggleLayer = (el) => {
     console.log(el);
+    console.log(this.state.allPoints);
     if (el != this.state.activeMarkers) {
       // console.log(newData);
 
