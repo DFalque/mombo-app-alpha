@@ -10,7 +10,7 @@ import {
 import validationEmail from '../../utils/validation';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // COMPONENTES
 import ActionButtonMombo from '../../ui/ActionButtonLinkMombo';
 import ActionButtonLinkMombo from '../../ui/ActionButtonLinkMombo';

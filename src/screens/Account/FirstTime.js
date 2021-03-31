@@ -1,9 +1,63 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TextInput, AsyncStorage} from 'react-native';
+import {View, Text, StyleSheet, TextInput, FlatList} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Slider from '@react-native-community/slider';
+//import Countries from '../../utils/countries.json';
+
 //Components
 import LinkGreySimple from '../../ui/Links/LinkGreySimple';
+import Counter from '../../components/Counter';
+import SelectionButton from '../../ui/ActionButton/SelectioButton';
+
+//country
 
 const FirstTime = (props) => {
+  const [travellers, setTravellers] = useState(formTravellers());
+  const {navigation} = props;
+  function formTravellers() {
+    return {
+      adults: 1,
+      kids: 0,
+    };
+  }
+
+  const next = () => {
+    navigation.navigate('Intereses');
+  };
+
+  const counterFun = (type, change) => {
+    console.log('ENtra la función');
+    if (type == 'adults' && change === 0) {
+      setTravellers({...travellers, [type]: 1});
+    } else {
+      setTravellers({...travellers, [type]: change});
+    }
+    console.log(travellers.adults);
+  };
+
+  const [budget, setBudget] = useState([
+    {title: 'Bajo', id: 0, icon: 'document-outline'},
+    {title: 'Intermedio', id: 1, icon: 'information-circle-outline'},
+    {title: 'Alto', id: 2, icon: 'sunny-outline'},
+    {title: 'Lujo', id: 2, icon: 'sunny-outline'},
+  ]);
+
+  /*const ciudades = () => {
+    fetch('https://wft-geo-db.p.rapidapi.com/v1/geo/countries', {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '8ad9d3a3c6mshbbe5c60e1721de0p1a9a32jsn21820a1e778f',
+        'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };*/
+
   const finishStart = async () => {
     console.log('El valor de read es: ');
     await AsyncStorage.setItem('read', 'false');
@@ -13,11 +67,14 @@ const FirstTime = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text>Estamos Start</Text>
+      <View style={styles.containerText}>
+        <Text style={styles.title}>Salida </Text>
+        <Text style={styles.subTitle}>¿Donde comienza tu viaje?</Text>
+      </View>
       <TextInput
         style={styles.input}
         underlineColorAndroid="transparent"
-        placeholder="Email"
+        placeholder="País"
         placeholderTextColor="grey"
         autoCapitalize="none"
         onChangeText={(e) => onChange(e, 'email')}
@@ -25,15 +82,79 @@ const FirstTime = (props) => {
       <TextInput
         style={styles.input}
         underlineColorAndroid="transparent"
-        placeholder="Email"
+        placeholder="Estado"
         placeholderTextColor="grey"
         autoCapitalize="none"
         onChangeText={(e) => onChange(e, 'email')}
       />
-      <Text>Adultos</Text>
-      <Text>Niños</Text>
-      <Text>Presupuesto</Text>
-      <LinkGreySimple text={'Salir'} doThis={finishStart} />
+      <TextInput
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        placeholder="Ciudad"
+        placeholderTextColor="grey"
+        autoCapitalize="none"
+        onChangeText={(e) => onChange(e, 'email')}
+      />
+      <TextInput
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        placeholder="Aeropuerto"
+        placeholderTextColor="grey"
+        autoCapitalize="none"
+        onChangeText={(e) => onChange(e, 'email')}
+      />
+      <View style={styles.containerText}>
+        <Text style={styles.title}>Viajeros </Text>
+        <Text style={styles.subTitle}>Elige a tus acompañantes</Text>
+      </View>
+      <View style={styles.containerTraveller}>
+        <Text>Adultos</Text>
+        <Counter
+          number={travellers.adults}
+          doThis={counterFun}
+          type={'adults'}
+        />
+      </View>
+      <View style={styles.containerTraveller}>
+        <Text>Niños</Text>
+        <Counter number={travellers.kids} doThis={counterFun} type={'kids'} />
+      </View>
+      <View style={styles.containerText}>
+        <Text style={styles.title}>Presupuesto </Text>
+        <Text style={styles.subTitle}>
+          ¿Qué te gustaría hacer en tus viajes?
+        </Text>
+      </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+        }}>
+        <FlatList
+          contentContainerStyle={styles.containerFlatList}
+          numColumns={2}
+          data={budget}
+          renderItem={({item}) => {
+            return <SelectionButton item={item} />;
+          }}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 10,
+          marginStart: 10,
+        }}>
+        <View style={{marginStart: 5}}>
+          <LinkGreySimple text={'Salir'} doThis={finishStart} />
+        </View>
+        <View style={{marginEnd: 5}}>
+          <LinkGreySimple text={'Siguiente'} doThis={next} />
+        </View>
+      </View>
     </View>
   );
 };
@@ -41,7 +162,12 @@ const FirstTime = (props) => {
 export default FirstTime;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: {
+    flex: 1,
+    //justifyContent: 'center',
+    //alignItems: 'center'
+    backgroundColor: '#FAFAFA',
+  },
   input: {
     marginBottom: 15,
     marginTop: 15,
@@ -50,5 +176,36 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'grey',
     borderWidth: 1,
+  },
+  containerTraveller: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginStart: 50,
+    marginEnd: 50,
+    marginBottom: 10,
+  },
+  containerCounter: {flexDirection: 'row'},
+  title: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  subTitle: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 11,
+    lineHeight: 13,
+    color: '#7B7B7B',
+    margin: 5,
+  },
+  containerText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    //   backgroundColor: 'blue',
+    marginBottom: 10,
+    marginTop: 10,
   },
 });

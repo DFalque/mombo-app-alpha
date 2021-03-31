@@ -8,7 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //SCREENS//
 //HOME
@@ -28,8 +28,10 @@ import ProfileScreen from './src/screens/bottom/ProfileScreen';
 //ACCOUNT
 import Account from './src/screens/Account/Account';
 import SignUp from './src/screens/Account/SignUp';
-//START
+//FIRSTIME
 import FirstTime from './src/screens/Account/FirstTime';
+import Interest from './src/screens/firsTime/Interest';
+import Time from './src/screens/firsTime/Time';
 
 // Falta la pantalla de itinerario no se donde ponerla
 //
@@ -86,6 +88,8 @@ const FirstTimeStackScreen = () => {
         component={FirstTime}
         Options={{}}
       />
+      <AccountStack.Screen name="Intereses" component={Interest} Options={{}} />
+      <AccountStack.Screen name="Tiempo" component={Time} Options={{}} />
     </FirstTimeStack.Navigator>
   );
 };
@@ -194,6 +198,13 @@ const ProfileStackScreen = () => {
   );
 };
 //                                                                            //
+// ASYNCOMPONENTE
+
+const Async = () => {
+  return;
+};
+
+//                                                                            //
 // TAB
 
 const Tab = createBottomTabNavigator();
@@ -206,7 +217,7 @@ export default function App() {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-  const [firstTime, setFirstTime] = useState();
+  const [firstTime, setFirstTime] = useState(true);
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -214,20 +225,27 @@ export default function App() {
     if (initializing) setInitializing();
   }
 
-  const onFirstTime = async () => {
-    console.log('entra la funcion');
+  const storage = async () => {
+    await AsyncStorage.getItem('read');
+    console.log('mmm');
+  };
 
+  const onFirstTime = async () => {
+    console.log(' ------------------ ');
+    console.log('Entra la funcion de Async');
     try {
+      console.log('Vamos a entrar');
       await AsyncStorage.getItem('read').then((read) => {
-        console.log(read);
-        if (read == 'false') {
+        console.log('Hacemos condicional');
+        if (read === 'false') {
+          console.log('read: ', read);
+          console.log('Cambiamos el valor del estado');
           setFirstTime(false);
-          console.log('read = a false');
-          console.log(firstTime);
-        } else if (read == 'true') {
+        } else if (read === 'true') {
+          console.log('read: ', read);
+          console.log('Cambiamos el valor del estado');
           setFirstTime(true);
-          console.log('valor de la vaina');
-          console.log(firstTime);
+          console.log('Estado: ', firstTime);
         }
       });
     } catch (error) {
@@ -243,10 +261,11 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
+      console.log('Cambio detectado');
       await AsyncStorage.getItem('read');
       onFirstTime();
     })();
-  }, []);
+  }, [storage]);
 
   //                                                        //
   //ACCOUNT
@@ -266,7 +285,7 @@ export default function App() {
   }
   //                                                        //
   // APP
-  else {
+  else if (user && !firstTime) {
     //obtener información del usuario aqui?????
     console.log('--------------------------------------');
     console.log(user);
