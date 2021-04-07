@@ -1,56 +1,70 @@
-import React, {useState} from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import React, {useState} from "react";
+import {View, Text, FlatList, StyleSheet} from "react-native";
 // COMPONENTS
-import SelectionButton from '../../ui/ActionButton/SelectioButton';
-import LinkGreySimple from '../../ui/Links/LinkGreySimple';
+import SelectionButton from "../../ui/ActionButton/SelectioButton";
+import LinkGreySimple from "../../ui/Links/LinkGreySimple";
 //FIREBASE
-import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+import auth from "@react-native-firebase/auth";
+import database from "@react-native-firebase/database";
 
 const Interest = (props) => {
   const {navigation} = props;
-  const [category, setCategory] = useState([
-    {title: 'Playa', id: 0, icon: 'document-outline'},
-    {title: 'Montaña', id: 1, icon: 'information-circle-outline'},
-    {title: 'Abarrotado', id: 2, icon: 'sunny-outline'},
-    {title: 'Íntimo', id: 3, icon: 'refresh-outline'},
-    {title: 'Grandes ciudades', id: 4, icon: 'cafe-outline'},
-    {title: 'Naturaleza', id: 5, icon: 'sunny-outline'},
-    {title: 'Escondido', id: 6, icon: 'trophy-outline'},
+
+  //                                                  //
+  //DATA
+  const [destinations, setDestinations] = useState([
+    {type: "Playa", title: "Playa", id: 0},
+    {type: "Montana", title: "Montaña", id: 1},
+    {type: "Abarrotado", title: "Abarrotado", id: 2},
+    {type: "Intimo", title: "Íntimo", id: 3},
+    {type: "GrandesCiudaades", title: "Grandes ciudades", id: 4},
+    {type: "Naturaleza", title: "Naturaleza", id: 5},
+    {type: "Escondido", title: "Escondido", id: 6},
   ]);
 
   const [activities, setActivities] = useState([
-    {title: 'Fiesta', id: 0, icon: 'document-outline'},
-    {title: 'Museos', id: 1, icon: 'information-circle-outline'},
-    {title: 'Comida Local', id: 2, icon: 'sunny-outline'},
-    {title: 'Excursiones', id: 3, icon: 'refresh-outline'},
-    {title: 'Relax', id: 4, icon: 'cafe-outline'},
-    {title: 'Aventura', id: 5, icon: 'sunny-outline'},
-    {title: 'Cultura Local', id: 6, icon: 'trophy-outline'},
-    {title: 'Comida Conocida', id: 7, icon: 'trophy-outline'},
+    {type: "Fiesta", title: "Fiesta", id: 0},
+    {type: "Museos", title: "Museos", id: 1},
+    {type: "ComidaLocal", title: "Comida Local", id: 2},
+    {type: "Excursiones", title: "Excursiones", id: 3},
+    {type: "Relax", title: "Relax", id: 4},
+    {type: "Aventura", title: "Aventura", id: 5},
+    {type: "CulturaLocal", title: "Cultura Local", id: 6},
+    {type: "ComidaConocida", title: "Comida Conocida", id: 7},
   ]);
 
   const [needs, setNeeds] = useState([
-    {title: 'Negocios', id: 0, icon: 'document-outline'},
-    {title: 'Sillas de Ruedas', id: 1, icon: 'information-circle-outline'},
-    {title: 'Mascotas', id: 2, icon: 'sunny-outline'},
-    {title: 'LGBTI', id: 3, icon: 'refresh-outline'},
-    {title: 'Vegano', id: 4, icon: 'cafe-outline'},
-    {title: 'Religioso', id: 5, icon: 'sunny-outline'},
-    {title: 'Medioambiente', id: 6, icon: 'trophy-outline'},
+    {type: "Negocios", title: "Negocios", id: 0},
+    {type: "SillasDeRuedas", title: "Sillas de Ruedas", id: 1},
+    {type: "Mascotas", title: "Mascotas", id: 2},
+    {type: "LGBTI", title: "LGBTI", id: 3},
+    {type: "Vegano", title: "Vegano", id: 4},
+    {type: "Religion", title: "Religioso", id: 5},
+    {type: "Medioambiente", title: "Medioambiente", id: 6},
   ]);
 
-  const [formData, setFormData] = useState(defaultFormValue());
+  ////////////////////////////////////////////////////7
+  //STATES
+  const [destination, setDestination] = useState(defaultDestinationValue());
+  const [activity, setActivity] = useState(defaultActivityValue());
+  const [need, setNeed] = useState(defaultFormNeeds());
 
-  //hay algun problema con las palabras separadas
-  function defaultFormValue() {
+  //                                                    //
+  //FORMS
+
+  function defaultDestinationValue() {
     return {
       Playa: false,
-      Montaña: false,
+      Montana: false,
       Abarrotado: false,
       Intimo: false,
       Ciudad: false,
       Naturaleza: false,
+    };
+  }
+
+  function defaultActivityValue() {
+    return {
       Fiesta: false,
       Museos: false,
       ComidaLocal: false,
@@ -59,39 +73,77 @@ const Interest = (props) => {
       Aventura: false,
       CulturaLocal: false,
       ComidaConocida: false,
+    };
+  }
+
+  function defaultFormNeeds() {
+    return {
       Negocios: false,
-      SillasRuedas: false,
+      SillasDeRuedas: false,
       LGBTI: false,
       Vegano: false,
-      Religión: false,
+      Religion: false,
       Medioambiente: false,
     };
   }
 
-  const uploadInterest = (type, active) => {
-    if (active === category.id) {
-      setFormData({...formData, [type]: true});
-      console.log(formData);
+  //                                                //
+  //CHANGE STATE
+
+  const uploadActivity = (type, active) => {
+    if (active === activities.id) {
+      setActivity({...activity, [type]: true});
+      console.log(activity);
     } else {
-      setFormData({...formData, [type]: false});
-      console.log(formData);
+      setActivity({...activity, [type]: false});
+      console.log(activity);
     }
   };
 
+  const uploadDestination = (type, active) => {
+    if (active === destinations.id) {
+      setDestination({...destination, [type]: true});
+      console.log(destination);
+    } else {
+      setDestination({...destination, [type]: false});
+      console.log(destination);
+    }
+  };
+
+  const uploadNeed = (type, active) => {
+    if (active === needs.id) {
+      setNeed({...need, [type]: true});
+      console.log(need);
+    } else {
+      setNeed({...need, [type]: false});
+      console.log(need);
+    }
+  };
+
+  //                                                //
+  // UPLOAD TO FIREBASE AND NEXT PAGE
+
   const goNext = () => {
-    navigation.navigate('Tiempo');
+    navigation.navigate("Tiempo");
     const user = auth().currentUser;
     console.log(user.uid);
     database()
-      .ref('/users/' + user.uid)
-      .set({
-        formData,
+      .ref("/users/" + user.uid)
+      .update({
+        destination,
+        activity,
+        need,
       })
       .then(() => {
-        console.log('Data updated.');
-        console.log('User account created & signed in!');
+        console.log("Data updated.");
+        console.log("User account created & signed in!");
       });
   };
+
+  //                                                //
+  //                                                //
+  //                                                //
+  //RETURN
 
   return (
     <View style={styles.container}>
@@ -103,9 +155,9 @@ const Interest = (props) => {
         <FlatList
           contentContainerStyle={styles.containerFlatList}
           numColumns={3}
-          data={category}
+          data={destinations}
           renderItem={({item}) => {
-            return <SelectionButton item={item} doThis={uploadInterest} />;
+            return <SelectionButton item={item} doThis={uploadDestination} />;
           }}
         />
       </View>
@@ -113,7 +165,7 @@ const Interest = (props) => {
         <View style={styles.containerText}>
           <Text style={styles.title}>Actividades </Text>
           <Text style={styles.subTitle}>
-            ¿Qué te gustaría hacer en tus viajes?{' '}
+            ¿Qué te gustaría hacer en tus viajes?{" "}
           </Text>
         </View>
         <FlatList
@@ -121,7 +173,7 @@ const Interest = (props) => {
           numColumns={3}
           data={activities}
           renderItem={({item}) => {
-            return <SelectionButton item={item} doThis={uploadInterest} />;
+            return <SelectionButton item={item} doThis={uploadActivity} />;
           }}
         />
       </View>
@@ -129,7 +181,7 @@ const Interest = (props) => {
         <View style={styles.containerText}>
           <Text style={styles.title}>Necesidades </Text>
           <Text style={styles.subTitle}>
-            ¿Qué te gustaría hacer en tus viajes?{' '}
+            ¿Qué te gustaría hacer en tus viajes?{" "}
           </Text>
         </View>
         <FlatList
@@ -137,21 +189,23 @@ const Interest = (props) => {
           numColumns={3}
           data={needs}
           renderItem={({item}) => {
-            return <SelectionButton item={item} doThis={uploadInterest} />;
+            return <SelectionButton item={item} doThis={uploadNeed} />;
           }}
         />
       </View>
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 10,
+          marginStart: 10,
         }}>
         <View style={{marginStart: 5}}>
-          <LinkGreySimple text={'Salir'} doThis={goNext} />
+          <LinkGreySimple text={"Salir"} doThis={goNext} />
         </View>
         <View style={{marginEnd: 5}}>
-          <LinkGreySimple text={'Siguiente'} doThis={goNext} />
+          <LinkGreySimple text={"Siguiente"} doThis={goNext} />
         </View>
       </View>
     </View>
@@ -160,45 +214,49 @@ const Interest = (props) => {
 
 export default Interest;
 
+//                                                  //
+//CSS
+
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#FAFAFA'},
+  container: {flex: 1, backgroundColor: "#FAFAFA"},
   containerDestination: {
+    flex: 1,
     marginTop: 20,
     marginStart: 20,
     marginEnd: 30,
-    justifyContent: 'center',
+    justifyContent: "center",
     //alignItems: 'center',
     // backgroundColor: 'yellow',
   },
   containerSelection: {},
   containerText: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     //   backgroundColor: 'blue',
     marginBottom: 10,
   },
   containerFlatList: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "flex-start",
     //  backgroundColor: 'red',
     marginStart: 20,
     //marginEnd: 20,
   },
   title: {
-    fontFamily: 'Roboto',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "bold",
     fontSize: 16,
     lineHeight: 19,
   },
   subTitle: {
-    fontFamily: 'Roboto',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 11,
     lineHeight: 13,
-    color: '#7B7B7B',
+    color: "#7B7B7B",
     margin: 5,
   },
 });

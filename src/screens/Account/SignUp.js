@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -6,20 +6,20 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
-} from 'react-native';
-import validationEmail from '../../utils/validation';
-import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+} from "react-native";
+import validationEmail from "../../utils/validation";
+import auth from "@react-native-firebase/auth";
+import database from "@react-native-firebase/database";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // COMPONENTES
-import ActionButtonMombo from '../../ui/ActionButtonLinkMombo';
-import ActionButtonLinkMombo from '../../ui/ActionButtonLinkMombo';
+import ActionButtonMombo from "../../ui/ActionButtonLinkMombo";
+import ActionButtonLinkMombo from "../../ui/ActionButtonLinkMombo";
 
 const SignUp = (props) => {
   const {navigation} = props;
   const readFalse = async () => {
     try {
-      await AsyncStorage.setItem('read', 'true');
+      await AsyncStorage.setItem("read", "true");
     } catch (error) {
       // Error retrieving data
       console.log(error.message);
@@ -27,10 +27,9 @@ const SignUp = (props) => {
   };
 
   const backtoStart = () => {
-    navigation.navigate('Cuenta');
+    navigation.navigate("Cuenta");
   };
-  //const [email, setEmail] = useState('');
-  //const [password, setPassword] = useState('');
+
   const [formData, setFormData] = useState(defaultFormValue());
 
   const onChange = (e, type) => {
@@ -49,23 +48,23 @@ const SignUp = (props) => {
         const id = response.user.uid;
         console.log(id);
         database()
-          .ref('/users/' + response.user.uid)
+          .ref("/users/" + response.user.uid)
           .set({
             age: 32,
-            nombre: 'Paco',
+            nombre: "Paco",
           })
           .then(() => {
-            console.log('Data updated.');
-            console.log('User account created & signed in!');
+            console.log("Data updated.");
+            console.log("User account created & signed in!");
           });
       })
       .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
+        if (error.code === "auth/email-already-in-use") {
+          console.log("That email address is already in use!");
         }
 
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
         }
 
         console.error(error);
@@ -74,8 +73,8 @@ const SignUp = (props) => {
 
   function defaultFormValue() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   }
   return (
@@ -83,13 +82,13 @@ const SignUp = (props) => {
       <View style={styles.containerHeader}>
         <ImageBackground
           style={styles.backgroundImage}
-          source={require('../../assets/signUpTop.png')}>
+          source={require("../../assets/signUpTop.png")}>
           <Text>Comienza una nueva Aventura</Text>
         </ImageBackground>
       </View>
       <View style={styles.containerSignUp}>
         <View style={styles.containerSignUpBottom}>
-          <ActionButtonLinkMombo text={'Volver'} doThis={backtoStart} />
+          <ActionButtonLinkMombo text={"Volver"} doThis={backtoStart} />
         </View>
         <View>
           <TextInput
@@ -98,7 +97,7 @@ const SignUp = (props) => {
             placeholder="Nombre de Usuario"
             placeholderTextColor="grey"
             autoCapitalize="none"
-            onChangeText={(e) => onChange(e, 'email')}
+            onChangeText={(e) => onChange(e, "email")}
           />
           <TextInput
             style={styles.input}
@@ -106,7 +105,7 @@ const SignUp = (props) => {
             placeholder="Email"
             placeholderTextColor="grey"
             autoCapitalize="none"
-            onChangeText={(e) => onChange(e, 'email')}
+            onChangeText={(e) => onChange(e, "email")}
           />
           <TextInput
             style={styles.input}
@@ -115,7 +114,7 @@ const SignUp = (props) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             secureTextEntry={true}
-            onChangeText={(e) => onChange(e, 'password')}
+            onChangeText={(e) => onChange(e, "password")}
           />
 
           <TouchableOpacity
@@ -136,9 +135,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerHeader: {flex: 1},
-  containerSignUp: {flex: 1, flexDirection: 'column-reverse'},
+  containerSignUp: {flex: 1, flexDirection: "column-reverse"},
   containerSignUpBottom: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingLeft: 20,
     paddingBottom: 20,
   },
@@ -148,31 +147,31 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     marginRight: 60,
     height: 40,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderWidth: 1,
   },
   submitButton: {
-    backgroundColor: '#D81159',
+    backgroundColor: "#D81159",
     padding: 10,
     marginBottom: 15,
     marginTop: 15,
     marginLeft: 60,
     marginRight: 60,
     height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
   },
   submitButtonText: {
-    color: 'white',
+    color: "white",
   },
   backgroundImage: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

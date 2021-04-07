@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState} from "react";
+import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 // FIREBASE
 
 const SelectioButton = ({item, doThis}) => {
@@ -7,10 +7,10 @@ const SelectioButton = ({item, doThis}) => {
   const changeBg = (item) => {
     if (item.id != categoryId) {
       setCategoryId(item.id);
-      doThis(item.title, categoryId);
+      doThis(item.type, categoryId);
     } else {
       setCategoryId();
-      doThis(item.title, categoryId);
+      doThis(item.type, categoryId);
     }
   };
 
@@ -23,17 +23,17 @@ const SelectioButton = ({item, doThis}) => {
         styles.categoryList,
         item.id === categoryId
           ? {
-              backgroundColor: '#D81159',
+              backgroundColor: "#D81159",
               borderWidth: 1,
-              borderColor: '#D81159',
+              borderColor: "#D81159",
             }
           : null,
       ]}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: "row"}}>
         <Text
           style={[
             styles.categoryListText,
-            item.id === categoryId ? {color: '#FFF'} : null,
+            item.id === categoryId ? {color: "#FFF"} : null,
           ]}>
           {item.title}
         </Text>
@@ -50,15 +50,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    borderStyle: 'solid',
+    backgroundColor: "#FFFFFF",
+    borderStyle: "solid",
     borderWidth: 1,
-    borderColor: '#E6E6E6',
+    borderColor: "#E6E6E6",
   },
   categoryListText: {
-    color: '#000',
+    color: "#000",
     fontSize: 11,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginStart: 5,
     marginEnd: 5,
   },
