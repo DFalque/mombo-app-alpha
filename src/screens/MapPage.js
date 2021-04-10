@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -10,17 +10,17 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   SafeAreaView,
-} from 'react-native';
+} from "react-native";
 //COMPONENTES
-import CreateMarkers from '../components/mapComponents/CreateMarkers';
+import CreateMarkers from "../components/mapComponents/CreateMarkers";
 
 //MAPBOX
-import MapboxGL from '@react-native-mapbox-gl/maps';
+import MapboxGL from "@react-native-mapbox-gl/maps";
 //DATOS
-import {dataSources} from '../../database';
+import {dataSources} from "../../database";
 // FIREBASE
-import database from '@react-native-firebase/database';
-import firestore from '@react-native-firebase/firestore';
+import database from "@react-native-firebase/database";
+import firestore from "@react-native-firebase/firestore";
 
 export default class MapPage extends React.Component {
   //                                                                      //
@@ -31,7 +31,7 @@ export default class MapPage extends React.Component {
     // En el state mete todos los elementos y datos necesario para el funcionamiento
     // del mapa y de los marcadores
     this.state = {
-      backgroundColor: 'blue',
+      backgroundColor: "blue",
       coordinates: [
         [-73.99155, 40.73581],
         [-73.99155, 40.73681],
@@ -41,8 +41,8 @@ export default class MapPage extends React.Component {
       data: [],
       allPoints: [],
       fadeAnim: new Animated.Value(0),
-      activeMarkers: '',
-      value: '',
+      activeMarkers: "",
+      value: "",
       searchBookmark: {},
       filterData: [],
       misMarcadores: [],
@@ -110,7 +110,7 @@ export default class MapPage extends React.Component {
       this.getDato(markRef);
 
       //Guarda todo los datos de los marcadores en items
-      itemsRef.on('value', (snap) => {
+      itemsRef.on("value", (snap) => {
         let items = snap.val().features;
         //Por cada Item sustituye algunos de los datos de Firebase por los datos
         // que están en este código ¿¿¿???
@@ -133,7 +133,7 @@ export default class MapPage extends React.Component {
         // }
       });
     });
-    console.log('-------------------------------------------------------');
+    console.log("-------------------------------------------------------");
   }
 
   //                                                                      //
@@ -184,28 +184,28 @@ export default class MapPage extends React.Component {
     let zoom = e.properties.zoomLevel;
     switch (true) {
       case zoom <= 2.1:
-        this.toggleLayer('marker_continents');
+        this.toggleLayer("marker_continents");
         break;
       case zoom > 2.1 && zoom <= 4.5:
-        this.toggleLayer('marker_zone_continents');
+        this.toggleLayer("marker_zone_continents");
         break;
       case zoom > 4.5 && zoom <= 5.7:
-        this.toggleLayer('marker_countries');
+        this.toggleLayer("marker_countries");
         break;
       case zoom > 5.7 && zoom <= 7:
-        this.toggleLayer('marker_zone_country');
+        this.toggleLayer("marker_zone_country");
         break;
       case zoom > 7 && zoom <= 8:
-        this.toggleLayer('marker_region_country');
+        this.toggleLayer("marker_region_country");
         break;
       case zoom > 8 && zoom <= 9.1:
-        this.toggleLayer('marker_zone_region');
+        this.toggleLayer("marker_zone_region");
         break;
       case zoom > 9.1 && zoom <= 13:
-        this.toggleLayer('marker_cities');
+        this.toggleLayer("marker_cities");
         break;
       case zoom > 13:
-        this.toggleLayer('marker_places');
+        this.toggleLayer("marker_places");
         break;
       default:
         break;
@@ -221,7 +221,7 @@ export default class MapPage extends React.Component {
   };
 
   navigateToBookmarkDescription = (bookmark) => {
-    this.props.navigation.navigate('Profile', {
+    this.props.navigation.navigate("Profile", {
       name: bookmark.properties.title,
       item: bookmark,
     });
@@ -233,7 +233,7 @@ export default class MapPage extends React.Component {
   };
 
   zoomToBookMark = (item) => {
-    console.log('Zoomed to bookmark: ' + item.properties.title);
+    console.log("Zoomed to bookmark: " + item.properties.title);
     Keyboard.dismiss();
     this.searchInput.blur();
 
@@ -244,7 +244,7 @@ export default class MapPage extends React.Component {
       }
     });
 
-    console.log('Zoom to:' + item.properties);
+    console.log("Zoom to:" + item.properties);
 
     this.setState({
       searchBookmark: item,
@@ -272,7 +272,7 @@ export default class MapPage extends React.Component {
     if (!text) {
       this.setState({
         filterData: [],
-        value: '',
+        value: "",
       });
 
       return;
@@ -317,7 +317,7 @@ export default class MapPage extends React.Component {
     const searchBookmark = this.state.searchBookmark;
     //const dt = this.getDato();
 
-    console.log('SeARCH: ' + JSON.stringify(searchBookmark));
+    console.log("SeARCH: " + JSON.stringify(searchBookmark));
     return (
       <>
         <SafeAreaView style={styles.searchControl}>
@@ -328,14 +328,14 @@ export default class MapPage extends React.Component {
               onChangeText={(text) => this.onChangeText(text)}
               onFocus={(e) => this.onFocus(e)}
               value={this.state.value}
-              placeholder={'Search Bookmark ....'}
+              placeholder={"Search Bookmark ...."}
             />
 
             {
               filterData && (
                 // <SafeAreaView style={styles.bookmarkList}>
                 <FlatList
-                  keyboardShouldPersistTaps={'handled'}
+                  keyboardShouldPersistTaps={"handled"}
                   style={styles.bookmarkList}
                   data={filterData}
                   renderItem={this.renderItem}
@@ -348,11 +348,11 @@ export default class MapPage extends React.Component {
         </SafeAreaView>
 
         <KeyboardAvoidingView
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
           style={{flex: 1}}
           keyboardVerticalOffset={-115}>
           <MapboxGL.MapView
-            key={'map'}
+            key={"map"}
             ref={(c) => (this._map = c)}
             onDidFinishLoadingMap={this.onDidFinishLoadingMap}
             onRegionDidChange={this.zoomend}
@@ -382,7 +382,7 @@ export default class MapPage extends React.Component {
                 coordinate={searchBookmark.geometry.coordinates}
                 anchor={{x: 0, y: 0}}>
                 <View
-                  style={{borderColor: 'black', borderWidth: 0, width: 'auto'}}>
+                  style={{borderColor: "black", borderWidth: 0, width: "auto"}}>
                   <TouchableOpacity
                     style={styles.btnStyle}
                     onPress={() =>
@@ -401,31 +401,31 @@ export default class MapPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   container: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: "#f2f2f2",
     flex: 1,
   },
   btnStyle: {
     borderWidth: 7,
-    borderColor: '#f49e09',
+    borderColor: "#f49e09",
     width: 44,
     height: 44,
     borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
   listview: {
     flex: 1,
   },
   li: {
-    backgroundColor: '#fff',
-    borderBottomColor: '#eee',
-    borderColor: 'transparent',
+    backgroundColor: "#fff",
+    borderBottomColor: "#eee",
+    borderColor: "transparent",
     borderWidth: 1,
     paddingLeft: 16,
     paddingTop: 14,
@@ -435,47 +435,47 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   liText: {
-    color: '#333',
+    color: "#333",
     fontSize: 16,
     paddingVertical: 1,
   },
   navbar: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderBottomColor: '#eee',
-    borderColor: 'transparent',
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderBottomColor: "#eee",
+    borderColor: "transparent",
     borderWidth: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     height: 44,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   navbarTitle: {
-    color: '#444',
+    color: "#444",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   statusbar: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     height: 22,
   },
   center: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   actionText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   action: {
-    backgroundColor: '#ff0000',
-    borderColor: 'transparent',
+    backgroundColor: "#ff0000",
+    borderColor: "transparent",
     borderWidth: 1,
     paddingLeft: 16,
     paddingTop: 14,
     paddingBottom: 16,
   },
   imgDesc: {
-    width: '100%',
+    width: "100%",
     height: 400,
   },
   map: {
@@ -486,29 +486,29 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 0,
-    position: 'absolute',
+    position: "absolute",
   },
   imgMarker: {
     width: 50,
     height: 50,
   },
   searchControl: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 0,
     left: 0,
     zIndex: 1,
     paddingHorizontal: 5,
     marginHorizontal: 20,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   textInput: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 0,
     marginHorizontal: 10,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 3,
@@ -523,11 +523,11 @@ const styles = StyleSheet.create({
   },
   bookmarkList: {
     marginTop: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   item: {
-    backgroundColor: '#fff',
-    borderTopColor: '#ddd',
+    backgroundColor: "#fff",
+    borderTopColor: "#ddd",
     borderTopWidth: 1,
     paddingVertical: 4,
     paddingHorizontal: 5,

@@ -16,7 +16,6 @@ const Interest = () => {
     {type: "24days", title: "24", id: 4},
     {type: "30days", title: "30", id: 5},
   ]);
-
   const [distance, setDistance] = useState([
     {type: "Near", title: "Cerca", id: 0},
     {type: "Country", title: "En mi país", id: 1},

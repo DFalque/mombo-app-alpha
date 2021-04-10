@@ -1,6 +1,6 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import {View, Text, Image, StyleSheet} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const NewsListItem = ({item}) => {
   return (
@@ -30,22 +30,22 @@ const styles = StyleSheet.create({
     maxWidth: 230,
     height: 350,
     borderRadius: 30,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     margin: 10,
     //borderWidth:0.4, borderColor:'#D3D3D3'
-    shadowColor: '#fff',
+    shadowColor: "#fff",
     shadowRadius: 10,
     shadowOpacity: 0.2,
     shadowOffset: {x: 5, y: -5},
     elevation: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     //backgroundColor: 'pink',
   },
-  containerImg: {width: '100%'},
+  containerImg: {width: "100%"},
   image: {
     //maxWidth: 230,
-    width: '100%',
-    height: '50%',
+    width: "100%",
+    height: "50%",
     flex: 1,
     //borderRadius: 30,
     //backgroundColor: '#FFFFFF',
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     //shadowRadius: 10,
     //shadowOpacity: 0.2,
     //shadowOffset: {x: 5, y: -5},
-    elevation: 10,
-    overflow: 'hidden',
+    elevation: 5,
+    overflow: "hidden",
     //backgroundColor: 'pink',
   },
   containerText: {
     //backgroundColor: 'red',
-    height: '50%',
+    height: "50%",
     flex: 1,
   },
   containerTextHeader: {
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
+    fontWeight: "bold",
+    color: "#000",
     margin: 10,
   },
   containerTextBody: {
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: 12,
-    textAlign: 'left',
-    color: '#000',
+    textAlign: "left",
+    color: "#000",
     marginStart: 10,
     marginEnd: 5,
     lineHeight: 14.63,
@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
   containerFooter: {
     // justifyContent: 'space-between',
     //backgroundColor: 'blue',
-    flexDirection: 'row',
+    flexDirection: "row",
     marginStart: 20,
     marginTop: 20,
     marginBottom: 20,
   },
-  icon: {alignSelf: 'center'},
-  footer: {fontSize: 11, fontWeight: 'bold', marginStart: 5},
+  icon: {alignSelf: "center"},
+  footer: {fontSize: 11, fontWeight: "bold", marginStart: 5},
 });
