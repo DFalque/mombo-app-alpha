@@ -70,7 +70,7 @@ const FirstTime = (props) => {
   //FUNCTIONS
 
   const next = () => {
-    navigation.navigate("Intereses");
+    navigation.navigate("Intereses",);
     const user = auth().currentUser;
     console.log(user.uid);
     database()

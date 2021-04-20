@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {View, Text, FlatList, StyleSheet} from "react-native";
 // COMPONENTS
 import SelectionButton from "../../ui/ActionButton/SelectioButton";
@@ -6,8 +6,12 @@ import LinkGreySimple from "../../ui/Links/LinkGreySimple";
 // FIREBASE
 import auth from "@react-native-firebase/auth";
 import database from "@react-native-firebase/database";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AuthContext from '../../context/AuthProvider'
 
-const Interest = () => {
+const Interest = ({navigation}) => {
+  // const {setIsFirstLaunch} = useContext(AuthContext);
+
   // DATA
   const [day, setDay] = useState([
     {type: "3days", title: "3", id: 0},
@@ -82,7 +86,16 @@ const Interest = () => {
       .then(() => {
         console.log("Data updated.");
         console.log("User account created & signed in!");
+        // navigation.navigate("Cuenta");
+        // finalise registration process
+        AsyncStorage.setItem('alreadyLaunched', 'true').then(() =>{
+          console.log("stored");
+          // setIsFirstLaunch(true)
+           navigation.replace('Tab')
+        });
       });
+
+      // set registration complete
   };
 
   return (
