@@ -6,8 +6,10 @@ import LinkGreySimple from "../../ui/Links/LinkGreySimple";
 // FIREBASE
 import auth from "@react-native-firebase/auth";
 import database from "@react-native-firebase/database";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Interest = () => {
+const Interest = ({navigation}) => {
+
   // DATA
   const [day, setDay] = useState([
     {type: "3days", title: "3", id: 0},
@@ -82,7 +84,15 @@ const Interest = () => {
       .then(() => {
         console.log("Data updated.");
         console.log("User account created & signed in!");
+        // navigation.navigate("Cuenta");
+        // finalise registration process
+        AsyncStorage.setItem('alreadyLaunched', 'true').then(() =>{
+          console.log("stored");
+          navigation.replace('Tab')
+        });
       });
+
+      // set registration complete
   };
 
   return (

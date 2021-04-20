@@ -1401,14 +1401,14 @@
     superstruct "^0.6.2"
 
 "@react-native-firebase/auth@^11.1.2":
-  version "11.1.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-11.1.2.tgz#f313c7edb9f38a700b4ce3b82b4873bd489667f6"
-  integrity sha512-YAaOrSkx9BNZkWJWXBwFkWzVRo9JKFwz/AQsMx9ubi+4L/Amrj4ICfB7Pjvq98tvE/Zpv3fuiTeX2FU/j2KEUA==
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-11.2.0.tgz#84ba11f0ef181d13a4b8daa110c9fbcc7d68eea4"
+  integrity sha512-lySvD0UrhQ+ERTp+ZViGPNWfKRLBZAfdK5RgdudbKyUqxiGS0Wx0lI6XMh0A7yT7yMKbhE2cSWAoJPYsEGG9mg==
 
 "@react-native-firebase/database@^10.1.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/database/-/database-10.2.0.tgz#bc6dd0cfd1184039227f6cbcb8fa3b49e830d1b8"
-  integrity sha512-Bjl6qWj4pxlCZK0iR1DuZa/d8SYFFhUNNvddUD/Q6wzP+n61lOUhegStXeA1HH7hJ7jSsGI/MIqn58GJLHEwBA==
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/database/-/database-10.8.1.tgz#f3e59f7dab103735a71c694e21edffd841953362"
+  integrity sha512-Ebdff0+tmYu8czul/3KCl8CGQAqJ/RXv9En14G9BGGa8JxPpn0eIE1xl2vgEkARKCyeZadJdz7Otsi+CrQOwTA==
 
 "@react-native-firebase/firestore@^10.2.0":
   version "10.2.0"
@@ -1421,9 +1421,9 @@
   integrity sha512-xS7r7Xcgf9JZBukRvmR2aS6ddR6bp8wvFC72yLaOSJAk2xl7Df3oZZXN825LCU7TjICTaKkZIulpW6eW9wjnPA==
 
 "@react-native-firebase/storage@^10.1.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-10.2.0.tgz#603a472c40f33819681f8bf8478e66d1f9bca8d3"
-  integrity sha512-J5JT+QQn8kYWftVz4uwfnS7Vo3EW3rny+bTPLhGjzQLo2bvGACacoOKA7sCcOFsuR3QV+5wXIElnagojqbhSyw==
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-10.8.1.tgz#16f833995c4f3315752de354e5e9e24674bd5a67"
+  integrity sha512-1Db87rh7DekGxynnbVo0jU+/LokJ8G0v5NWbVYyU0C2LOFjjuaODkQG4hYQKD/Pr85n5w0kD8P9k9HRRWbH9eQ==
 
 "@react-native-mapbox-gl/maps@^8.1.0-rc.9":
   version "8.1.0-rc.9"
@@ -6065,6 +6065,13 @@ react-native-iphone-x-helper@^1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
+react-native-onboarding-swiper@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.1.4.tgz#cb2d97c769542228d3904a9da13e02359ed6e3f5"
+  integrity sha512-dG2J6giQpt5kKlU+Xe68E9xy+OkmC9Yf5XD7S1mJQ5VvwySfCIXnPojai0PEQ9NmbbH06k9lqN5Ik1PGYnIdVA==
+  dependencies:
+    tinycolor2 "^1.4.1"
+
 react-native-paper@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.2.0.tgz#534c0f9dbeecfd73d20f1f7b1ef3df32aa2ca4b0"
@@ -7105,6 +7112,11 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
+
+tinycolor2@^1.4.1:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
+  integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
 
 tmp@^0.0.33:
   version "0.0.33"

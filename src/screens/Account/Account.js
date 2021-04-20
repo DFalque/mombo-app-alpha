@@ -25,7 +25,9 @@ const Account = (props) => {
   function signUp() {
     navigation.navigate('Registrarse');
   }
-
+  function firstTimer() {
+    navigation.navigate('FirstTimeStack');
+  }
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headerContainer}>
@@ -41,7 +43,7 @@ const Account = (props) => {
           style={styles.backgroundImage}
           source={require('../../assets/shape.png')}>
           <ActionButtonWhite text={'Registrarse'} doThis={signUp} />
-          <ActionButtonLinkWhite text={'Login'} doThis={signUp} />
+          <ActionButtonLinkWhite text={'Login'} doThis={firstTimer} />
         </ImageBackground>
       </View>
     </View>

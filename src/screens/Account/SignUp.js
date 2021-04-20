@@ -30,6 +30,10 @@ const SignUp = (props) => {
     navigation.navigate("Cuenta");
   };
 
+  const gotoFirstTime = () => {
+    navigation.navigate("FirstTimeStack");
+  };
+
   const [formData, setFormData] = useState(defaultFormValue());
 
   const onChange = (e, type) => {
@@ -42,7 +46,7 @@ const SignUp = (props) => {
     console.log(validationEmail(formData.email));
     readFalse();
     auth()
-      .createUserWithEmailAndPassword(formData.email, formData.password)
+      .signInWithEmailAndPassword(formData.email, formData.password)
       .then((response) => {
         console.log(response);
         const id = response.user.uid;
@@ -56,6 +60,7 @@ const SignUp = (props) => {
           .then(() => {
             console.log("Data updated.");
             console.log("User account created & signed in!");
+            gotoFirstTime()
           });
       })
       .catch((error) => {
